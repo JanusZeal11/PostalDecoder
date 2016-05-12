@@ -22,7 +22,7 @@ namespace PostalDecoder.Models
 
         public override string ToString()
         {
-            return this.City + "," + this.State + " " + this.Zip;
+            return this.City + ", " + this.State + " " + this.Zip;
         }
     }
 }

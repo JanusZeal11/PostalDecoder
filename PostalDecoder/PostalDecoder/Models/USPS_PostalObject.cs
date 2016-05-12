@@ -35,9 +35,12 @@ namespace PostalDecoder.Models
         {
             List<String> zips = new List<string>();
 
-            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode").Descendants("Zip5"))
+            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode"))
             {
-                zips.Add(ele.Value);
+                if (ele.Descendants("Error").Count() == 0)
+                    zips.Add(ele.Descendants("Zip5").First().Value);
+                else
+                    zips.Add(ele.Descendants("Description").First().Value);
             }
 
             return zips;
@@ -47,9 +50,12 @@ namespace PostalDecoder.Models
         {
             List<String> cities = new List<string>();
 
-            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode").Descendants("City"))
+            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode"))
             {
-                cities.Add(ele.Value);
+                if (ele.Descendants("Error").Count() == 0)
+                    cities.Add(ele.Descendants("City").First().Value);
+                else
+                    cities.Add(ele.Descendants("Description").First().Value);
             }
 
             return cities;
@@ -59,9 +65,12 @@ namespace PostalDecoder.Models
         {
             List<String> states = new List<string>();
 
-            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode").Descendants("State"))
+            foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode"))
             {
-                states.Add(ele.Value);
+                if (ele.Descendants("Error").Count() == 0)
+                    states.Add(ele.Descendants("State").First().Value);
+                else
+                    states.Add(ele.Descendants("Description").First().Value);
             }
 
             return states;
@@ -73,10 +82,18 @@ namespace PostalDecoder.Models
 
             foreach (XElement ele in USPS_Post.Root.Descendants("ZipCode"))
             {
-                LocationObject location = new LocationObject(ele.Descendants("City").First().Value.ToString(), 
-                                                             ele.Descendants("State").First().Value.ToString(), 
-                                                             ele.Descendants("Zip5").First().Value.ToString());
-                locations.Add(location.ToString());
+                if (ele.Descendants("Error").Count() == 0)
+                {
+                    LocationObject location = new LocationObject(ele.Descendants("City").First().Value.ToString(),
+                                                                 ele.Descendants("State").First().Value.ToString(),
+                                                                 ele.Descendants("Zip5").First().Value.ToString());
+
+                    locations.Add(location.ToString());
+                }
+                else
+                {
+                    locations.Add(ele.Descendants("Description").First().Value);
+                }
             }
 
             return locations;

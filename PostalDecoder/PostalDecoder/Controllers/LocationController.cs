@@ -43,13 +43,10 @@ namespace PostalDecoder.Controllers
             List<string> zipList = new List<string>();
             foreach (string zip in zips.Split(','))
                 zipList.Add(zip.Trim());
-
             USPS_PostalObject USPS = new USPS_PostalObject();
             await USPS.BuildPostalObject(zipList);
-
             return USPS.GetLocations();
         }
-
     }
 
     // Taken from http://stackoverflow.com/questions/24370436/asp-net-call-asynchronous-webmethod-with-jquery
