@@ -1,0 +1,65 @@
+﻿<div class="jumbotron">
+    <h1>Postal Code Decoder</h1>
+    <p class="lead">This application decripts comma seperated postal codes and displays the City/State/Zip Codes for them</p>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <h2>Input</h2>
+        <div id="inputs">
+            <span>Input Zip Codes</span>
+            <input id="zipCodes" />
+            <input type="button" value="Lookup" onclick="GetZips();" />
+            <input type="button" value="Test" onclick="GetTest();" />
+        </div>
+    </div>
+    <div class="col-md-4">
+        <h2>Results</h2>
+        <ul id="resultList"></ul>
+    </div>
+
+    <script type="text/javascript">
+        var uri = "app/Locations";
+
+        function FormatItem(item) {
+            var list = '<li>' + item[0] + '</li>';
+            if (item.length > 1) {
+                for (var i = 1; i < item.length; i++) {
+                    list += '<li>' + item[i] + '</li>';
+                }
+            }
+            return list
+        }
+
+        function GetZips() {
+            var zips = $('#zipCodes').val();
+
+            $.ajax({
+                url: '/api/Location?zips=' + zips,
+                type: 'GET',
+                dataType: 'json',
+                success:(function (data) {
+                    $('#resultList').empty();
+                    $('#resultList').append(FormatItem(data));
+                }),
+                error: function (msg) {
+                    alert(msg.responseText);
+                }
+            });
+        }
+
+        function GetTest() {
+            $.ajax({
+                url: '/api/Location',
+                type: 'GET',
+                dataType: 'json',
+                success: (function (data) {
+                    $('#resultList').empty();
+                    $('#resultList').append(FormatItem(data));
+                }),
+                error: function (msg) {
+                    alert(msg.responseText);
+                }
+            });
+        }
+    </script>
+</div>
