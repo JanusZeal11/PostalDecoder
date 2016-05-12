@@ -162,6 +162,8 @@
     </Compile>
     <Compile Include="Models\LocationObject.cs" />
     <Compile Include="Models\USPS_PostalObject.cs" />
+    <Compile Include="Models\WeatherAPI.cs" />
+    <Compile Include="Models\WeatherObject.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

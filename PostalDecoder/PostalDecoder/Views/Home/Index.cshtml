@@ -9,25 +9,47 @@
             <span>Input Zip Codes</span>
             <input id="zipCodes" />
             <input type="button" value="Lookup" onclick="GetZips();" />
-            <input type="button" value="Test" onclick="GetTest();" />
+            <input type="button" value="Get Weather for Chosen Zip Codes" onclick="GetWeather();" />
         </div>
     </div>
     <div class="col-md-4">
         <h2>Results</h2>
         <ul id="resultList"></ul>
     </div>
+    <div class="col-md-4">
+        <h2>Weather</h2>
+        <ul id="weatherList"></ul>
+    </div>
 
     <script type="text/javascript">
         var uri = "app/Locations";
+        var zipList = [];
 
         function FormatItem(item) {
+            zipList = [];
             var list = '<li>' + item[0] + '</li>';
+            zipList.push({ 'id': item[0].split(',')[1].split(' ')[2] });
             if (item.length > 1) {
                 for (var i = 1; i < item.length; i++) {
                     list += '<li>' + item[i] + '</li>';
+                    var value = item[i];
+                    if (item[i].indexOf(',') > 0)
+                        value = value[i].split(',')[1]
+                    zipList.push({ 'id': value.split(' ')[2] });
                 }
             }
-            return list
+            return list;
+        }
+
+        function FormatWeather(item) {
+            var element = '<li>' + item.name + ', Conditions: ' + item.weather[0].description + ', Temp: ' + item.main.temp + '&deg; , Wind: ' + WindDirection(item.wind.deg) + ' at ' + item.wind.speed + 'mph</li>';
+            return element;
+        }
+
+        function WindDirection(deg) {
+            var windCompass = Math.round((deg - 11.25) / 22.5);
+            var windNames = new Array("N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW");
+            return windNames[windCompass];
         }
 
         function GetZips() {
@@ -47,17 +69,26 @@
             });
         }
 
-        function GetTest() {
-            $.ajax({
-                url: '/api/Location',
-                type: 'GET',
-                dataType: 'json',
-                success: (function (data) {
-                    $('#resultList').empty();
-                    $('#resultList').append(FormatItem(data));
-                }),
-                error: function (msg) {
-                    alert(msg.responseText);
+        function GetWeather() {
+            $('#weatherList').empty();
+            $.each(zipList, function (index, value) {
+                if (value.id != 'Code.')
+                {
+                    $.ajax({
+                        url: 'http://api.openweathermap.org/data/2.5/weather?zip=' + value.id + ',us&units=imperial&appid=cc916ef389726b07bbafe7a60fe3aed4',
+                        type: 'GET',
+                        dataType: 'json',
+                        success: (function (data) {
+                            $("#weatherList").append(FormatWeather(data));
+                        }),
+                        error: function (msg) {
+                            alert(msg.responseText);
+                        }
+                    });
+                }
+                else
+                {
+
                 }
             });
         }

@@ -43,3 +43,4 @@ C:\Users\Arthur\Documents\GitHub\PostalDecoder\PostalDecoder\PostalDecoder\bin\S
 C:\Users\Arthur\Documents\GitHub\PostalDecoder\PostalDecoder\PostalDecoder\bin\Antlr3.Runtime.pdb
 C:\Users\Arthur\Documents\GitHub\PostalDecoder\PostalDecoder\PostalDecoder\obj\Debug\PostalDecoder.dll
 C:\Users\Arthur\Documents\GitHub\PostalDecoder\PostalDecoder\PostalDecoder\obj\Debug\PostalDecoder.pdb
+C:\Users\Arthur\Documents\GitHub\PostalDecoder\PostalDecoder\PostalDecoder\obj\Debug\PostalDecoder.csprojResolveAssemblyReference.cache
