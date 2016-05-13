@@ -6,3 +6,7 @@ This project was a Programming challenge where I needed to write a program that 
 For this project I used the USPS Web Tools interface to retrieve the nessessary data.
 
 As it stands, any list of valid post codes.  If a zip code isn't reconized, its place in the returned list states that it is an invalid code.  The others pas through just fine.
+
+Update:
+
+Upon reviewing before submittal, I realized I had forgotten to add in the intended result of the task, the weather report.  So I modified the functionality slightly.  The USPS Web Tools API is now used to validate input zip codes before sending the values through an ajax call to retreave the display data.
