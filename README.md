@@ -10,3 +10,13 @@ As it stands, any list of valid post codes.  If a zip code isn't reconized, its 
 Update:
 
 Upon reviewing before submittal, I realized I had forgotten to add in the intended result of the task, the weather report.  So I modified the functionality slightly.  The USPS Web Tools API is now used to validate input zip codes before sending the values through an ajax call to retreave the display data.
+
+
+Files to Review:
+
+PostalDecoder/PostalDecoder.Tests/Models/USPS_PostalObjectTest.cs
+PostalDecoder/PostalDecoder/Controllers/HomeControler.cs
+PostalDecoder/PostalDecoder/Models/LocationObject.cs
+PostalDecoder/PostalDecoder/Models/USPS_PostalObject.cs
+PostalDecoder/PostalDecoder/Views/Home/index.cshtml
+
